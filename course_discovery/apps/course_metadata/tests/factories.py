@@ -100,7 +100,7 @@ class CourseFactory(factory.DjangoModelFactory):
     canonical_course_run = None
     extra_description = factory.SubFactory(AdditionalPromoAreaFactory)
     faq = FuzzyText()
-    learner_testimonals = FuzzyText()
+    learner_testimonials = FuzzyText()
 
     class Meta:
         model = Course
