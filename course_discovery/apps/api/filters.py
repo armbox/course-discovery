@@ -175,7 +175,7 @@ class OrganizationFilter(filters.FilterSet):
 
     class Meta:
         model = Organization
-        fields = ('tags', 'uuids',)
+        fields = ('key', 'tags', 'uuids',)
 
 
 class PersonFilter(filters.FilterSet):
