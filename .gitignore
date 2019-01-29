@@ -47,6 +47,7 @@ unittests.xml
 !django.mo
 !djangojs.po
 !djangojs.mo
+!/tools/lib
 course_discovery/conf/locale/fake*/LC_MESSAGES/*.po
 course_discovery/conf/locale/fake*/LC_MESSAGES/*.mo
 course_discovery/conf/locale/messages.mo
