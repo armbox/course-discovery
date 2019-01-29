@@ -182,6 +182,9 @@ class ProgramAdmin(admin.ModelAdmin):
     class Media:
         js = ('bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
               'js/sortable_select.js')
+        css = {
+            'all': ('css/edux-admin.css',)
+        }
 
 
 @admin.register(Pathway)

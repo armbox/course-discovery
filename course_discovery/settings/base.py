@@ -57,6 +57,7 @@ THIRD_PARTY_APPS = [
     'solo',
     'webpack_loader',
     'parler',
+    'froala_editor',
 ]
 
 PROJECT_APPS = [

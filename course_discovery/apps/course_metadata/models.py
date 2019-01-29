@@ -34,6 +34,7 @@ from course_discovery.apps.course_metadata.query import CourseQuerySet, CourseRu
 from course_discovery.apps.course_metadata.utils import UploadToFieldNamePath, clean_query, custom_render_variations
 from course_discovery.apps.ietf_language_tags.models import LanguageTag
 from course_discovery.apps.publisher.utils import VALID_CHARS_IN_COURSE_NUM_AND_ORG_KEY
+from froala_editor.fields import FroalaField
 
 logger = logging.getLogger(__name__)
 
@@ -1029,7 +1030,9 @@ class Program(TimeStampedModel):
     # with related Courses are stored.
     excluded_course_runs = models.ManyToManyField(CourseRun, blank=True)
     partner = models.ForeignKey(Partner, null=True, blank=False)
-    overview = models.TextField(null=True, blank=True)
+    overview = FroalaField(options={
+        'inlineMode': True,
+    })
     total_hours_of_effort = models.PositiveSmallIntegerField(
         null=True, blank=True,
         help_text='Total estimated time needed to complete all courses belonging to this program. This field is '

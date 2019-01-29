@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from course_discovery.apps.course_metadata.choices import ProgramStatus
 from course_discovery.apps.course_metadata.models import Course, CourseRun, Pathway, Program
+from froala_editor.widgets import FroalaEditor
 
 
 def filter_choices_to_render_with_order_preserved(self, selected_choices):
@@ -25,6 +26,9 @@ def filter_choices_to_render_with_order_preserved(self, selected_choices):
 
 
 class ProgramAdminForm(forms.ModelForm):
+    overview = forms.CharField(widget=FroalaEditor(options={
+        'inlineMode': True,
+    }))
     class Meta:
         model = Program
         fields = '__all__'

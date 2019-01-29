@@ -54,6 +54,7 @@ urlpatterns = auth_urlpatterns + [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jsi18n/$', javascript_catalog, name='javascript-catalog'),
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    url(r'^froala_editor/', include('froala_editor.urls')),
 ]
 
 # Add the catalog extension urls if edx_catalog_extensions is installed.
