@@ -29,7 +29,7 @@ def filter_choices_to_render_with_order_preserved(self, selected_choices):
 class ProgramAdminForm(forms.ModelForm):
     overview = forms.CharField(widget=FroalaEditor(options={
         'inlineMode': True,
-        'key': setings.FROALA_EDITOR_KEY,
+        'key': settings.FROALA_EDITOR_KEY,
     }))
     class Meta:
         model = Program
