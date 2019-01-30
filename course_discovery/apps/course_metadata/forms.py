@@ -1,6 +1,5 @@
 from dal import autocomplete
 from django import forms
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.translation import ugettext_lazy as _
@@ -29,7 +28,6 @@ def filter_choices_to_render_with_order_preserved(self, selected_choices):
 class ProgramAdminForm(forms.ModelForm):
     overview = forms.CharField(widget=FroalaEditor(options={
         'inlineMode': True,
-        'key': settings.FROALA_EDITOR_KEY,
     }))
     class Meta:
         model = Program
