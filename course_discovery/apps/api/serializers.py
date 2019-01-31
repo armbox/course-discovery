@@ -1490,10 +1490,14 @@ class PersonFacetSerializer(BaseHaystackFacetSerializer):
 
 class ProgramSearchSerializer(HaystackSerializer):
     authoring_organizations = serializers.SerializerMethodField()
+    courses_count = serializers.SerializerMethodField()
 
     def get_authoring_organizations(self, program):
         organizations = program.authoring_organization_bodies
         return [json.loads(organization) for organization in organizations] if organizations else []
+
+    def get_courses_count(self, program):
+        return len(program.courses)
 
     class Meta:
         field_aliases = COMMON_SEARCH_FIELD_ALIASES
@@ -1510,7 +1514,8 @@ class ProgramSearchSerializer(HaystackSerializer):
             'subject_uuids',
             'weeks_to_complete_max',
             'weeks_to_complete_min',
-            'search_card_display'
+            'search_card_display',
+            'courses_count',
         )
 
 
