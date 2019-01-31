@@ -38,6 +38,7 @@
   },
   "scripts": {
     "git": "babel-node tools/run git",
-    "shell": "bash ./shell.sh"
+    "shell": "bash ./shell.sh",
+    "logs": "docker service logs -f --tail 20 dev_edux-discovery"
   }
 }
