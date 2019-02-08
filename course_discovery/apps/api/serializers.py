@@ -1497,7 +1497,7 @@ class ProgramSearchSerializer(HaystackSerializer):
         return [json.loads(organization) for organization in organizations] if organizations else []
 
     def get_courses_count(self, program):
-        return len(program.courses)
+        return len(program.courses) if program.courses else 0
 
     class Meta:
         field_aliases = COMMON_SEARCH_FIELD_ALIASES
