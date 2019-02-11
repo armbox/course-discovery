@@ -633,6 +633,8 @@ class MinimalCourseSerializer(TimestampModelSerializer):
     entitlements = CourseEntitlementSerializer(many=True)
     owners = MinimalOrganizationSerializer(many=True, source='authoring_organizations')
     image = ImageField(read_only=True, source='image_url')
+    level_type = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    subjects = SubjectSerializer(many=True)
 
     @classmethod
     def prefetch_queryset(cls, queryset=None, course_runs=None):
@@ -648,7 +650,7 @@ class MinimalCourseSerializer(TimestampModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('key', 'uuid', 'title', 'course_runs', 'entitlements', 'owners', 'image', 'short_description', 'subjects',)
+        fields = ('key', 'uuid', 'title', 'course_runs', 'entitlements', 'owners', 'image', 'short_description', 'subjects', 'level_type',)
 
 
 class CourseSerializer(MinimalCourseSerializer):
