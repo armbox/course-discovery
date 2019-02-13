@@ -8,7 +8,7 @@ from parler.admin import TranslatableAdmin
 from course_discovery.apps.course_metadata.exceptions import (
     MarketingSiteAPIClientException, MarketingSitePublisherException
 )
-from course_discovery.apps.course_metadata.forms import CourseAdminForm, PathwayAdminForm, ProgramAdminForm, PersonAdminForm
+from course_discovery.apps.course_metadata.forms import CourseAdminForm, CourseRunAdminForm, PathwayAdminForm, ProgramAdminForm, PersonAdminForm
 from course_discovery.apps.course_metadata.models import *  # pylint: disable=wildcard-import
 
 PUBLICATION_FAILURE_MSG_TPL = _(
@@ -84,6 +84,7 @@ class CourseEntitlementAdmin(admin.ModelAdmin):
 
 @admin.register(CourseRun)
 class CourseRunAdmin(admin.ModelAdmin):
+    form = CourseRunAdminForm
     inlines = (SeatInline,)
     list_display = ('uuid', 'key', 'title',)
     list_filter = (

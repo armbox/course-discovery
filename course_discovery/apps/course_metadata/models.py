@@ -572,6 +572,7 @@ class CourseRun(TimeStampedModel):
         default=False,
         verbose_name=_('Add OFAC restriction text to the FAQ section of the Marketing site')
     )
+    is_new = models.BooleanField(default=False)
 
     objects = CourseRunQuerySet.as_manager()
 

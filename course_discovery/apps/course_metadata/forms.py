@@ -118,6 +118,12 @@ class CourseAdminForm(forms.ModelForm):
         }
 
 
+class CourseRunAdminForm(forms.ModelForm):
+    class Meta:
+        model = CourseRun
+        fields = '__all__'
+
+
 class PathwayAdminForm(forms.ModelForm):
     class Meta:
         model = Pathway
