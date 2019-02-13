@@ -18,18 +18,4 @@ class Migration(migrations.Migration):
             name='is_new',
             field=models.BooleanField(default=False),
         ),
-        migrations.AlterField(
-            model_name='person',
-            name='bio',
-            field=froala_editor.fields.FroalaField(),
-        migrations.AlterField(
-            model_name='person',
-            name='major_works',
-            field=froala_editor.fields.FroalaField(),
-        ),
-        migrations.AlterField(
-            model_name='program',
-            name='overview',
-            field=froala_editor.fields.FroalaField(),
-        ),
     ]
