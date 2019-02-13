@@ -8,7 +8,7 @@ from parler.admin import TranslatableAdmin
 from course_discovery.apps.course_metadata.exceptions import (
     MarketingSiteAPIClientException, MarketingSitePublisherException
 )
-from course_discovery.apps.course_metadata.forms import CourseAdminForm, PathwayAdminForm, ProgramAdminForm
+from course_discovery.apps.course_metadata.forms import CourseAdminForm, PathwayAdminForm, ProgramAdminForm, PersonAdminForm
 from course_discovery.apps.course_metadata.models import *  # pylint: disable=wildcard-import
 
 PUBLICATION_FAILURE_MSG_TPL = _(
@@ -278,12 +278,18 @@ class TopicAdmin(TranslatableAdmin):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
+    form = PersonAdminForm
     inlines = (PositionInline, PersonSocialNetworkInline)
     list_display = ('uuid', 'salutation', 'family_name', 'given_name', 'bio_language', 'slug',)
     list_filter = ('partner', 'bio_language')
     ordering = ('salutation', 'family_name', 'given_name', 'uuid',)
     readonly_fields = ('uuid',)
     search_fields = ('uuid', 'salutation', 'family_name', 'given_name', 'slug',)
+
+    class Media:
+        css = {
+            'all': ('css/edux-admin.css',)
+        }
 
 
 @admin.register(Position)

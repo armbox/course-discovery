@@ -286,7 +286,7 @@ class Person(TimeStampedModel):
     salutation = models.CharField(max_length=10, null=True, blank=True)
     given_name = models.CharField(max_length=255)
     family_name = models.CharField(max_length=255, null=True, blank=True)
-    bio = models.TextField(null=True, blank=True)
+    bio = FroalaField()
     bio_language = models.ForeignKey(LanguageTag, null=True, blank=True)
     profile_image_url = models.URLField(null=True, blank=True)
     profile_image = StdImageField(
@@ -300,10 +300,7 @@ class Person(TimeStampedModel):
     slug = AutoSlugField(populate_from=('given_name', 'family_name'), editable=True)
     profile_url = models.URLField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True, max_length=255)
-    major_works = models.TextField(
-        blank=True,
-        help_text=_('A list of major works by this person. Must be valid HTML.'),
-    )
+    major_works = FroalaField()
 
     class Meta:
         unique_together = (
@@ -1030,9 +1027,7 @@ class Program(TimeStampedModel):
     # with related Courses are stored.
     excluded_course_runs = models.ManyToManyField(CourseRun, blank=True)
     partner = models.ForeignKey(Partner, null=True, blank=False)
-    overview = FroalaField(options={
-        'inlineMode': True,
-    })
+    overview = FroalaField()
     total_hours_of_effort = models.PositiveSmallIntegerField(
         null=True, blank=True,
         help_text='Total estimated time needed to complete all courses belonging to this program. This field is '

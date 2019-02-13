@@ -5,7 +5,7 @@ from django.forms.utils import ErrorList
 from django.utils.translation import ugettext_lazy as _
 
 from course_discovery.apps.course_metadata.choices import ProgramStatus
-from course_discovery.apps.course_metadata.models import Course, CourseRun, Pathway, Program
+from course_discovery.apps.course_metadata.models import Course, CourseRun, Pathway, Program, Person
 from froala_editor.widgets import FroalaEditor
 
 
@@ -26,9 +26,7 @@ def filter_choices_to_render_with_order_preserved(self, selected_choices):
 
 
 class ProgramAdminForm(forms.ModelForm):
-    overview = forms.CharField(widget=FroalaEditor(options={
-        'inlineMode': True,
-    }))
+    overview = forms.CharField(widget=FroalaEditor())
     class Meta:
         model = Program
         fields = '__all__'
@@ -134,3 +132,12 @@ class PathwayAdminForm(forms.ModelForm):
             Pathway.validate_partner_programs(partner, programs)
 
         return self.cleaned_data
+
+class PersonAdminForm(forms.ModelForm):
+    bio = forms.CharField(widget=FroalaEditor())
+    major_works = forms.CharField(widget=FroalaEditor(options={
+        'placeholderText': 'A list of major works by this person.',
+    }))
+    class Meta:
+        model = Person
+        fields = '__all__'
