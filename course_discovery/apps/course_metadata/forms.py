@@ -140,10 +140,8 @@ class PathwayAdminForm(forms.ModelForm):
         return self.cleaned_data
 
 class PersonAdminForm(forms.ModelForm):
-    bio = forms.CharField(widget=FroalaEditor())
-    major_works = forms.CharField(widget=FroalaEditor(options={
-        'placeholderText': 'A list of major works by this person.',
-    }))
+    # bio = forms.CharField(widget=FroalaEditor())
+    # major_works = forms.CharField(widget=FroalaEditor())
     class Meta:
         model = Person
         fields = '__all__'
