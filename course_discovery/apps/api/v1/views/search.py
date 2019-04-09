@@ -9,7 +9,7 @@ from rest_framework import renderers, status, viewsets
 from rest_framework.decorators import list_route
 from rest_framework.exceptions import ParseError, ValidationError
 from rest_framework.filters import OrderingFilter
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -136,6 +136,7 @@ class CourseRunSearchViewSet(BaseHaystackViewSet):
 
 class ProgramSearchViewSet(BaseHaystackViewSet):
     document_uid_field = 'uuid'
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     lookup_field = 'uuid'
     index_models = (Program,)
     detail_serializer_class = serializers.ProgramSearchModelSerializer
