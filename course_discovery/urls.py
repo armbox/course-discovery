@@ -36,6 +36,7 @@ urlpatterns = auth_urlpatterns + [
     url(r'^admin/core/', include('course_discovery.apps.core.urls', namespace='admin_core')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('course_discovery.apps.api.urls', namespace='api')),
+    url(r'^api-smartlearn/', include('smartlearn.urls', namespace='smartlearn')),
     # Use the same auth views for all logins, including those originating from the browseable API.
     url(r'^api-auth/', include(auth_urlpatterns, namespace='rest_framework')),
     url(r'^api-docs/', SwaggerSchemaView.as_view(), name='api_docs'),
