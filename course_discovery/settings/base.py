@@ -70,6 +70,7 @@ PROJECT_APPS = [
     'course_discovery.apps.publisher',
     'course_discovery.apps.publisher_comments',
     'course_discovery.apps.journal',
+    'smartlearn',
 ]
 
 
