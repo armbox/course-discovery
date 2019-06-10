@@ -286,8 +286,8 @@ class Person(TimeStampedModel):
     salutation = models.CharField(max_length=10, null=True, blank=True)
     given_name = models.CharField(max_length=255)
     family_name = models.CharField(max_length=255, null=True, blank=True)
-    # bio = models.TextField(null=True, blank=True)
-    bio = FroalaField(null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    # bio = FroalaField(null=True, blank=True)
     bio_language = models.ForeignKey(LanguageTag, null=True, blank=True)
     profile_image_url = models.URLField(null=True, blank=True)
     profile_image = StdImageField(
@@ -301,7 +301,7 @@ class Person(TimeStampedModel):
     slug = AutoSlugField(populate_from=('given_name', 'family_name'), editable=True)
     profile_url = models.URLField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True, max_length=255)
-    major_works = FroalaField(
+    major_works = models.TextField(
         blank=True,
         help_text=_('A list of major works by this person. Must be valid HTML.'),
     )
@@ -531,6 +531,7 @@ class CourseRun(TimeStampedModel):
             "Full description specific for this run of a course. Leave this value blank to default to "
             "the parent course's full_description attribute."))
     staff = SortedManyToManyField(Person, blank=True, related_name='courses_staffed')
+    instructors = SortedManyToManyField(Person, blank=True, related_name='courses_instructed')
     min_effort = models.PositiveSmallIntegerField(
         null=True, blank=True,
         help_text=_('Estimated minimum number of hours per week needed to complete a course run.'))
@@ -1032,7 +1033,7 @@ class Program(TimeStampedModel):
     # with related Courses are stored.
     excluded_course_runs = models.ManyToManyField(CourseRun, blank=True)
     partner = models.ForeignKey(Partner, null=True, blank=False)
-    overview = FroalaField(null=True, blank=True)
+    overview = models.TextField(null=True, blank=True)
     total_hours_of_effort = models.PositiveSmallIntegerField(
         null=True, blank=True,
         help_text='Total estimated time needed to complete all courses belonging to this program. This field is '
