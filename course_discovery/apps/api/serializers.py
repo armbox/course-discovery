@@ -559,7 +559,7 @@ class CourseRunSerializer(MinimalCourseRunSerializer):
     transcript_languages = serializers.SlugRelatedField(many=True, read_only=True, slug_field='code')
     video = VideoSerializer(source='get_video')
     seats = SeatSerializer(many=True)
-    instructors = serializers.SerializerMethodField(help_text='This field is deprecated. Use staff.')
+    instructors = MinimalPersonSerializer(many=True)
     staff = MinimalPersonSerializer(many=True)
     level_type = serializers.SlugRelatedField(read_only=True, slug_field='name')
 
@@ -571,6 +571,7 @@ class CourseRunSerializer(MinimalCourseRunSerializer):
             'course__level_type',
             'transcript_languages',
             'video__image',
+            Prefetch('instructors', queryset=MinimalPersonSerializer.prefetch_queryset()),
             Prefetch('staff', queryset=MinimalPersonSerializer.prefetch_queryset()),
         )
 
