@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import froala_editor.fields
+import sortedm2m.fields
 
 
 class Migration(migrations.Migration):
@@ -17,5 +17,15 @@ class Migration(migrations.Migration):
             model_name='courserun',
             name='is_new',
             field=models.BooleanField(default=False),
+        ),
+        migrations.AddField(
+            model_name='courserun',
+            name='instructors',
+            field=sortedm2m.fields.SortedManyToManyField(blank=True, help_text=None, related_name='courses_instructed', to='course_metadata.Person'),
+        ),
+        migrations.AlterField(
+            model_name='program',
+            name='courses',
+            field=sortedm2m.fields.SortedManyToManyField(blank=True, help_text=None, related_name='programs', to='course_metadata.Course'),
         ),
     ]

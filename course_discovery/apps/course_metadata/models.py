@@ -1089,6 +1089,9 @@ class Program(TimeStampedModel):
         default=False, db_index=True,
         help_text=_('Hide program on marketing site landing and search pages. This program MAY have a detail page.'))
     objects = ProgramQuerySet.as_manager()
+    order = models.IntegerField(
+        default=9999, db_index=True, blank=True,
+    )
 
     def __str__(self):
         return self.title
