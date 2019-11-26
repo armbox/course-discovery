@@ -1093,6 +1093,7 @@ class Program(TimeStampedModel):
     order = models.IntegerField(
         default=9999, db_index=True, blank=True,
     )
+    course_group = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title
