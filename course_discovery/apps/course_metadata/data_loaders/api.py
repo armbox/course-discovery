@@ -128,8 +128,18 @@ class CoursesApiDataLoader(AbstractDataLoader):
         self._process_response(response)
 
     def _make_request(self, page):
-        org = ','.join([o.key for o in self.partner.organization_set.all()])
-        return self.api_client.courses().get(page=page, page_size=self.PAGE_SIZE, username=self.username, org=org)
+        if self.partner.organization_set.count() > 0:
+            org = ','.join([o.key for o in self.partner.organization_set.all()])
+            return self.api_client.courses().get(page=page, page_size=self.PAGE_SIZE, username=self.username, org=org)
+
+        # return empty results
+        return {
+            'pagination': {
+                'count': 0,
+                'num_pages': 0,  
+            },
+            'results': [],
+        }            
 
     def _process_response(self, response):
         results = response['results']
