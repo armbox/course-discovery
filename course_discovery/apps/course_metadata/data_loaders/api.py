@@ -128,7 +128,8 @@ class CoursesApiDataLoader(AbstractDataLoader):
         self._process_response(response)
 
     def _make_request(self, page):
-        return self.api_client.courses().get(page=page, page_size=self.PAGE_SIZE, username=self.username)
+        org = ','.join([o.key for o in self.partner.organization_set.all()])
+        return self.api_client.courses().get(page=page, page_size=self.PAGE_SIZE, username=self.username, org=org)
 
     def _process_response(self, response):
         results = response['results']
@@ -187,7 +188,6 @@ class CoursesApiDataLoader(AbstractDataLoader):
         # We need to add the key to the defaults because django ignores kwargs with __
         # separators when constructing the create request
         defaults['key'] = course_key
-        defaults['partner'] = self.partner
 
         course, created = Course.objects.get_or_create(key__iexact=course_key, partner=self.partner, defaults=defaults)
 
@@ -260,6 +260,7 @@ class CoursesApiDataLoader(AbstractDataLoader):
     def format_course_data(self, body):
         defaults = {
             'title': body['name'],
+            'partner': self.partner,
         }
 
         return defaults
