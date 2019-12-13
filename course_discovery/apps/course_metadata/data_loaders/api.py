@@ -57,7 +57,6 @@ class OrganizationsApiDataLoader(AbstractDataLoader):
 
         defaults = {
             'key': key,
-            'partner': self.partner,
             'certificate_logo_image_url': logo,
         }
 
@@ -68,7 +67,19 @@ class OrganizationsApiDataLoader(AbstractDataLoader):
                 'logo_image_url': logo,
             })
 
-        Organization.objects.update_or_create(key__iexact=key, partner=self.partner, defaults=defaults)
+        # 이미 존재하는 조직은 partner를 변경하지 않고 값만 업데이트하고
+        # 없는 조직은 첫번째 partner로 설정되도록.
+        try:
+            org = Organization.objects.get(key__iexact=key)
+            for attr, value in defaults.items():
+                setattr(org, attr, value)
+            org.save()
+        except Organization.DoesNotExist:
+            defaults.update({
+                'partner': self.partner,
+            })
+            Organization.objects.update_or_create(key__iexact=key, partner=self.partner, defaults=defaults)
+
         logger.info('Processed organization "%s"', key)
 
 
