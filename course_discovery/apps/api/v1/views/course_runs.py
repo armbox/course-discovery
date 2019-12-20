@@ -5,6 +5,7 @@ from rest_framework.decorators import list_route
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from course_discovery.apps.api import filters, serializers
 from course_discovery.apps.api.pagination import ProxiedPagination
@@ -15,7 +16,7 @@ from course_discovery.apps.course_metadata.models import CourseRun
 
 
 # pylint: disable=no-member
-class CourseRunViewSet(viewsets.ModelViewSet):
+class CourseRunViewSet(CacheResponseMixin, viewsets.ModelViewSet):
     """ CourseRun resource. """
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filter_class = filters.CourseRunFilter
@@ -50,7 +51,7 @@ class CourseRunViewSet(viewsets.ModelViewSet):
             qs.model = self.queryset.model
             return qs
         else:
-            queryset = super(CourseRunViewSet, self).get_queryset().filter(course__partner=partner)
+            queryset = super(CourseRunViewSet, self).get_queryset()
             return self.get_serializer_class().prefetch_queryset(queryset=queryset)
 
     def get_serializer_context(self, *args, **kwargs):
