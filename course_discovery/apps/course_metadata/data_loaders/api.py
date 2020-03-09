@@ -234,6 +234,7 @@ class CoursesApiDataLoader(AbstractDataLoader):
             'enrollment_start': self.parse_date(body['enrollment_start']),
             'enrollment_end': self.parse_date(body['enrollment_end']),
             'hidden': body.get('hidden', False),
+            'attendance_check_enabled': body.get('attendance_check_enabled', False),
         }
 
         # NOTE: The license field is non-nullable.
