@@ -1,4 +1,5 @@
 import abc
+import json
 import re
 
 import html2text
@@ -120,6 +121,25 @@ class AbstractDataLoader(metaclass=abc.ABCMeta):
             return parse(date_string)
 
         return None
+
+    @classmethod
+    def parse_ints(cls, ints_string):
+        """
+        Returns a parsed int array.
+
+        Args:
+            ints_string (str): String to be parsed.
+        
+        Returns:
+            int array, or []
+        """
+        try:
+            if ints_string:
+                return json.loads(ints_string)
+        except:
+            pass
+
+        return []
 
     @classmethod
     def get_course_key_from_course_run_key(cls, course_run_key):

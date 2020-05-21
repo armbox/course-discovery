@@ -263,6 +263,13 @@ class CoursesApiDataLoader(AbstractDataLoader):
                 'mobile_available': body.get('mobile_available') or False,
             })
 
+        staff = self.parse_ints(body['staff'])
+        if staff:
+            defaults['staff'] = staff
+        instructors = self.parse_ints(body['instructors'])
+        if instructors:
+            defaults['instructors'] = instructors
+
         if course:
             defaults['course'] = course
 
